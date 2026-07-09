@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana &amp; Timo — Wir heiraten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --plaster:#F4EEE1;
+    --plaster-deep:#ECE3D0;
+    --timber:#2E2118;
+    --timber-soft:#5C4632;
+    --gold:#B9932E;
+    --sage:#6E7C5A;
+    --brick:#8B3A3A;
+    --max: 720px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--plaster);
+    color:var(--timber);
+    font-family:'Jost', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+
+  .eyebrow{
+    font-family:'Jost', sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--timber-soft);
+    font-weight:600;
+  }
+
+  a{color:var(--brick);}
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* --- Andreaskreuz signature motif --- */
+  .brace{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin:0 auto;
+  }
+  .brace svg{ display:block; }
+  .brace-line{ stroke:var(--timber-soft); stroke-width:1.4; }
+  .brace-line.accent{ stroke:var(--gold); }
+
+  /* --- Hero --- */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:60px 24px;
+    overflow:hidden;
+  }
+
+  .hero-frame{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    opacity:0.55;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:1;
+  }
+
+  .hero .eyebrow{ opacity:0; animation:rise 0.9s ease forwards; animation-delay:0.1s; }
+
+  .names{
+    font-size:clamp(2.8rem, 9vw, 5.2rem);
+    line-height:1.05;
+    margin:18px 0 6px;
+    opacity:0;
+    animation:rise 0.9s ease forwards;
+    animation-delay:0.28s;
+  }
+  .names .amp{
+    color:var(--gold);
+    font-style:italic;
+    font-weight:300;
+    padding:0 0.15em;
+  }
+
+  .hero-date{
+    font-size:1.05rem;
+    color:var(--timber-soft);
+    margin-top:14px;
+    opacity:0;
+    animation:rise 0.9s ease forwards;
+    animation-delay:0.46s;
+  }
+  .hero-date strong{ color:var(--timber); font-weight:600; }
+
+  .hero-place{
+    margin-top:4px;
+    font-size:0.95rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--sage);
+    opacity:0;
+    animation:rise 0.9s ease forwards;
+    animation-delay:0.6s;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero .eyebrow, .names, .hero-date, .hero-place, .reveal{
+      animation:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
+  }
+
+  /* --- Section rhythm --- */
+  section{
+    padding:88px 0;
+  }
+  section.tight{ padding:64px 0; }
+
+  .section-head{
+    text-align:center;
+    margin-bottom:44px;
+  }
+  .section-head h2{
+    font-size:clamp(1.7rem, 4vw, 2.3rem);
+    margin-top:10px;
+  }
+
+  .lede{
+    text-align:center;
+    font-size:1.1rem;
+    color:var(--timber-soft);
+    max-width:52ch;
+    margin:0 auto;
+  }
+
+  /* --- Timeline --- */
+  .timeline{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .timeline li{
+    display:grid;
+    grid-template-columns:96px 1fr;
+    gap:22px;
+    padding:22px 0;
+    border-bottom:1px solid var(--plaster-deep);
+    align-items:baseline;
+  }
+  .timeline li:first-child{ border-top:1px solid var(--plaster-deep); }
+  .t-time{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.15rem;
+    color:var(--gold);
+  }
+  .t-what strong{
+    display:block;
+    font-size:1.05rem;
+    margin-bottom:2px;
+  }
+  .t-what span{
+    color:var(--timber-soft);
+    font-size:0.92rem;
+  }
+  .placeholder{
+    color:var(--brick);
+    font-style:italic;
+  }
+
+  /* --- Venue card --- */
+  .venue-card{
+    background:var(--plaster-deep);
+    border-radius:2px;
+    padding:36px 32px;
+    text-align:center;
+    position:relative;
+  }
+  .venue-card::before{
+    content:"";
+    position:absolute;
+    top:0; left:50%;
+    transform:translateX(-50%);
+    width:52px; height:2px;
+    background:var(--gold);
+  }
+  .venue-card h3{
+    font-family:'Fraunces', serif;
+    font-size:1.5rem;
+    font-weight:600;
+    margin:0 0 8px;
+  }
+  .venue-card p{ margin:6px 0; color:var(--timber-soft); }
+  .venue-note{
+    margin-top:18px;
+    font-size:0.92rem;
+    color:var(--sage);
+    max-width:44ch;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  /* --- RSVP --- */
+  .rsvp-box{
+    text-align:center;
+  }
+  .rsvp-button{
+    display:inline-block;
+    margin-top:22px;
+    padding:14px 34px;
+    background:var(--timber);
+    color:var(--plaster);
+    text-decoration:none;
+    font-family:'Jost', sans-serif;
+    font-weight:600;
+    letter-spacing:0.05em;
+    font-size:0.9rem;
+    text-transform:uppercase;
+    border-radius:1px;
+    transition:transform 0.25s ease, background 0.25s ease;
+  }
+  .rsvp-button:hover{ background:var(--brick); transform:translateY(-2px); }
+  .rsvp-deadline{
+    margin-top:16px;
+    font-size:0.88rem;
+    color:var(--timber-soft);
+  }
+
+  /* --- Info accordion --- */
+  .info-grid{
+    display:grid;
+    gap:14px;
+  }
+  details{
+    border-bottom:1px solid var(--plaster-deep);
+    padding:18px 4px;
+  }
+  details summary{
+    cursor:pointer;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.1rem;
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  details summary::-webkit-details-marker{ display:none; }
+  details summary::after{
+    content:"+";
+    font-family:'Jost', sans-serif;
+    font-weight:400;
+    color:var(--gold);
+    font-size:1.4rem;
+    transition:transform 0.25s ease;
+  }
+  details[open] summary::after{ transform:rotate(45deg); }
+  details p{ color:var(--timber-soft); margin-top:12px; }
+
+  /* --- Footer --- */
+  footer{
+    text-align:center;
+    padding:70px 24px 50px;
+  }
+  footer .names-small{
+    font-family:'Fraunces', serif;
+    font-size:1.4rem;
+    font-weight:600;
+  }
+  footer .names-small .amp{ color:var(--gold); font-style:italic; font-weight:300; }
+  footer .foot-note{
+    margin-top:10px;
+    font-size:0.85rem;
+    color:var(--timber-soft);
+  }
+
+  /* --- Reveal on scroll --- */
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* --- Focus visibility --- */
+  a:focus-visible, summary:focus-visible, .rsvp-button:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  @media (max-width:520px){
+    .timeline li{ grid-template-columns:70px 1fr; gap:14px; }
+    section{ padding:64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+  BEARBEITEN: Alle Stellen mit [in eckigen Klammern] oder der
+  Klasse "placeholder" sind Platzhalter. Einfach im Text suchen
+  (Strg+F) und ersetzen.
+============================================================ -->
+
+<header class="hero">
+  <div class="hero-frame" aria-hidden="true">
+    <svg width="100%" height="100%" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
+      <line class="brace-line" x1="0" y1="0" x2="800" y2="800"/>
+      <line class="brace-line" x1="800" y1="0" x2="0" y2="800"/>
+      <line class="brace-line" x1="0" y1="400" x2="800" y2="400"/>
+      <line class="brace-line accent" x1="400" y1="0" x2="400" y2="800"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <p class="eyebrow">Wir heiraten</p>
+    <h1 class="names">Ana <span class="amp">&amp;</span> Timo</h1>
+    <p class="hero-date">Freitag, <strong>28. August 2026</strong> · ab 10:00 Uhr</p>
+    <p class="hero-place">Einbeck</p>
+  </div>
+</header>
+
+<main>
+
+  <section class="tight reveal">
+    <div class="wrap">
+      <p class="lede">
+        In der alten Fachwerkstadt Einbeck, zwischen schiefen Balken und
+        jahrhundertealten Giebeln, sagen wir Ja zueinander — und würden
+        uns riesig freuen, wenn ihr dabei seid.
+      </p>
+    </div>
+  </section>
+
+  <div class="brace" aria-hidden="true">
+    <svg width="80" height="24" viewBox="0 0 80 24">
+      <line class="brace-line" x1="0" y1="0" x2="80" y2="24"/>
+      <line class="brace-line" x1="80" y1="0" x2="0" y2="24"/>
+    </svg>
+  </div>
+
+  <section class="reveal" id="ablauf">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Der Tag</p>
+        <h2>Ablauf</h2>
+      </div>
+      <ul class="timeline">
+        <li>
+          <span class="t-time">10:00</span>
+          <span class="t-what">
+            <strong>Trauung</strong>
+            <span class="placeholder">[Ort der Trauung einfügen]</span>
+          </span>
+        </li>
+        <li>
+          <span class="t-time placeholder">[Zeit]</span>
+          <span class="t-what">
+            <strong class="placeholder">[Empfang / Sektempfang einfügen]</strong>
+            <span class="placeholder">[Ort einfügen]</span>
+          </span>
+        </li>
+        <li>
+          <span class="t-time placeholder">[Zeit]</span>
+          <span class="t-what">
+            <strong class="placeholder">[Abendessen einfügen]</strong>
+            <span class="placeholder">[Ort einfügen]</span>
+          </span>
+        </li>
+        <li>
+          <span class="t-time placeholder">[Zeit]</span>
+          <span class="t-what">
+            <strong class="placeholder">[Party / Tanz einfügen]</strong>
+            <span class="placeholder">[Ort einfügen]</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="brace" aria-hidden="true">
+    <svg width="80" height="24" viewBox="0 0 80 24">
+      <line class="brace-line accent" x1="0" y1="0" x2="80" y2="24"/>
+      <line class="brace-line accent" x1="80" y1="0" x2="0" y2="24"/>
+    </svg>
+  </div>
+
+  <section class="reveal" id="ort">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Location</p>
+        <h2>Ort</h2>
+      </div>
+      <div class="venue-card">
+        <h3 class="placeholder">[Name der Location einfügen]</h3>
+        <p class="placeholder">[Straße, Hausnummer]</p>
+        <p class="placeholder">[PLZ] Einbeck</p>
+        <p class="venue-note">
+          Einbeck ist bekannt für seine gut erhaltenen Fachwerkhäuser und
+          seine lange Braugeschichte — kommt gern etwas früher und
+          schaut euch die Altstadt an.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="brace" aria-hidden="true">
+    <svg width="80" height="24" viewBox="0 0 80 24">
+      <line class="brace-line" x1="0" y1="0" x2="80" y2="24"/>
+      <line class="brace-line" x1="80" y1="0" x2="0" y2="24"/>
+    </svg>
+  </div>
+
+  <section class="reveal" id="rsvp">
+    <div class="wrap rsvp-box">
+      <div class="section-head">
+        <p class="eyebrow">Zusage</p>
+        <h2>RSVP</h2>
+      </div>
+      <p class="lede">
+        Lasst uns bitte wissen, ob ihr dabei sein könnt — wir freuen uns
+        auf jede Nachricht.
+      </p>
+      <a class="rsvp-button" href="mailto:[eure-email@einfuegen.de]?subject=Zusage%20Hochzeit%20Ana%20%26%20Timo">
+        Jetzt zusagen
+      </a>
+      <p class="rsvp-deadline">Rückmeldung bitte bis zum <span class="placeholder">[Datum einfügen]</span></p>
+    </div>
+  </section>
+
+  <div class="brace" aria-hidden="true">
+    <svg width="80" height="24" viewBox="0 0 80 24">
+      <line class="brace-line" x1="0" y1="0" x2="80" y2="24"/>
+      <line class="brace-line" x1="80" y1="0" x2="0" y2="24"/>
+    </svg>
+  </div>
+
+  <section class="reveal" id="info">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Gut zu wissen</p>
+        <h2>Weitere Infos</h2>
+      </div>
+      <div class="info-grid">
+        <details>
+          <summary>Kleidung</summary>
+          <p class="placeholder">[Dresscode einfügen, z. B. "Festlich, gerne in warmen Herbsttönen"]</p>
+        </details>
+        <details>
+          <summary>Übernachtung</summary>
+          <p class="placeholder">[Hotelempfehlungen oder Zimmerkontingent in Einbeck einfügen]</p>
+        </details>
+        <details>
+          <summary>Geschenke</summary>
+          <p class="placeholder">[Wunschliste, Spendenkonto o. Ä. einfügen]</p>
+        </details>
+        <details>
+          <summary>Anfahrt &amp; Parken</summary>
+          <p class="placeholder">[Parkmöglichkeiten oder ÖPNV-Hinweise einfügen]</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="brace" aria-hidden="true" style="margin-bottom:36px;">
+    <svg width="100" height="30" viewBox="0 0 100 30">
+      <line class="brace-line" x1="0" y1="0" x2="100" y2="30"/>
+      <line class="brace-line" x1="100" y1="0" x2="0" y2="30"/>
+      <line class="brace-line accent" x1="50" y1="0" x2="50" y2="30"/>
+    </svg>
+  </div>
+  <p class="names-small">Ana <span class="amp">&amp;</span> Timo</p>
+  <p class="foot-note">28. August 2026 · Einbeck · Wir freuen uns auf euch!</p>
+</footer>
+
+<script>
+  // Scroll-reveal for sections, respecting reduced motion.
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+  }
+</script>
+
+</body>
+</html>
