@@ -10,14 +10,17 @@
 <style>
 
   :root{
-    --plaster:#F4EEE1;
-    --plaster-deep:#ECE3D0;
-    --timber:#2E2118;
-    --timber-soft:#5C4632;
-    --gold:#B9932E;
-    --sage:#6E7C5A;
-    --brick:#8B3A3A;
-    --max: 720px;
+    --paper:#FFFFFF;
+    --paper-soft:#F6F7F2;
+    --ink:#2E2B26;
+    --ink-soft:#6B6459;
+    --eucalyptus:#93AC8C;
+    --eucalyptus-deep:#5F7A5C;
+    --cornflower:#4C6FA5;
+    --delphinium:#6E86B8;
+    --thistle:#8477A8;
+    --lavender:#9C8FC4;
+    --max: 760px;
   }
 
   *{box-sizing:border-box;}
@@ -25,8 +28,8 @@
 
   body{
     margin:0;
-    background:var(--plaster);
-    color:var(--timber);
+    background:var(--paper);
+    color:var(--ink);
     font-family:'Jost', sans-serif;
     font-weight:400;
     line-height:1.6;
@@ -45,28 +48,79 @@
     font-size:0.72rem;
     letter-spacing:0.28em;
     text-transform:uppercase;
-    color:var(--timber-soft);
+    color:var(--ink-soft);
     font-weight:600;
   }
 
-  a{color:var(--brick);}
+  a{color:var(--cornflower);}
 
   .wrap{
     max-width:var(--max);
     margin:0 auto;
     padding:0 28px;
+    position:relative;
   }
 
-  /* --- Andreaskreuz signature motif --- */
-  .brace{
-    width:100%;
+  /* --- Language toggle --- */
+  .lang-pt{ display:none; }
+  body.pt .lang-de{ display:none; }
+  body.pt .lang-pt{ display:inline; }
+
+  .lang-switch{
+    position:fixed;
+    top:18px;
+    right:18px;
+    z-index:20;
+    display:flex;
+    background:var(--paper);
+    border:1px solid var(--paper-soft);
+    border-radius:20px;
+    padding:4px;
+    box-shadow:0 2px 10px rgba(46,43,38,0.08);
+  }
+  .lang-switch button{
+    border:none;
+    background:transparent;
+    font-family:'Jost', sans-serif;
+    font-weight:600;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    padding:7px 14px;
+    border-radius:16px;
+    cursor:pointer;
+    color:var(--ink-soft);
+  }
+  .lang-switch button.active{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  /* --- Floral corner ornaments --- */
+  .corner-spray{
+    position:absolute;
+    width:220px;
+    height:220px;
+    pointer-events:none;
+    opacity:0.9;
+  }
+  .corner-spray.tl{ top:0; left:0; }
+  .corner-spray.br{ bottom:0; right:0; transform:rotate(180deg); }
+
+  /* --- Floral divider --- */
+  .divider{
     display:flex;
     justify-content:center;
     margin:0 auto;
   }
-  .brace svg{ display:block; }
-  .brace-line{ stroke:var(--timber-soft); stroke-width:1.4; }
-  .brace-line.accent{ stroke:var(--gold); }
+  .divider svg{ display:block; height:64px; width:auto; }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-photo, .hero .eyebrow, .names, .hero-date, .hero-place, .reveal{
+      animation:none !important;
+      opacity:1 !important;
+      transform:none !important;
+    }
+  }
 
   /* --- Hero --- */
   .hero{
@@ -81,16 +135,27 @@
     overflow:hidden;
   }
 
-  .hero-frame{
-    position:absolute;
-    inset:0;
-    z-index:0;
-    opacity:0.55;
-  }
-
   .hero-content{
     position:relative;
     z-index:1;
+  }
+
+  .hero-photo{
+    width:168px;
+    height:168px;
+    border-radius:50%;
+    overflow:hidden;
+    margin:0 auto 26px;
+    border:3px solid var(--paper);
+    box-shadow:0 0 0 1px var(--eucalyptus), 0 10px 30px rgba(46,43,38,0.15);
+    opacity:0;
+    animation:rise 0.9s ease forwards;
+  }
+  .hero-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
   }
 
   .hero .eyebrow{ opacity:0; animation:rise 0.9s ease forwards; animation-delay:0.1s; }
@@ -104,7 +169,7 @@
     animation-delay:0.28s;
   }
   .names .amp{
-    color:var(--gold);
+    color:var(--cornflower);
     font-style:italic;
     font-weight:300;
     padding:0 0.15em;
@@ -112,20 +177,20 @@
 
   .hero-date{
     font-size:1.05rem;
-    color:var(--timber-soft);
+    color:var(--ink-soft);
     margin-top:14px;
     opacity:0;
     animation:rise 0.9s ease forwards;
     animation-delay:0.46s;
   }
-  .hero-date strong{ color:var(--timber); font-weight:600; }
+  .hero-date strong{ color:var(--ink); font-weight:600; }
 
   .hero-place{
     margin-top:4px;
     font-size:0.95rem;
     letter-spacing:0.08em;
     text-transform:uppercase;
-    color:var(--sage);
+    color:var(--eucalyptus-deep);
     opacity:0;
     animation:rise 0.9s ease forwards;
     animation-delay:0.6s;
@@ -134,14 +199,6 @@
   @keyframes rise{
     from{ opacity:0; transform:translateY(14px); }
     to{ opacity:1; transform:translateY(0); }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .hero .eyebrow, .names, .hero-date, .hero-place, .reveal{
-      animation:none !important;
-      opacity:1 !important;
-      transform:none !important;
-    }
   }
 
   /* --- Section rhythm --- */
@@ -162,7 +219,7 @@
   .lede{
     text-align:center;
     font-size:1.1rem;
-    color:var(--timber-soft);
+    color:var(--ink-soft);
     max-width:52ch;
     margin:0 auto;
   }
@@ -181,15 +238,15 @@
     grid-template-columns:96px 1fr;
     gap:22px;
     padding:22px 0;
-    border-bottom:1px solid var(--plaster-deep);
+    border-bottom:1px solid var(--paper-soft);
     align-items:baseline;
   }
-  .timeline li:first-child{ border-top:1px solid var(--plaster-deep); }
+  .timeline li:first-child{ border-top:1px solid var(--paper-soft); }
   .t-time{
     font-family:'Fraunces', serif;
     font-weight:600;
     font-size:1.15rem;
-    color:var(--gold);
+    color:var(--cornflower);
   }
   .t-what strong{
     display:block;
@@ -197,44 +254,67 @@
     margin-bottom:2px;
   }
   .t-what span{
-    color:var(--timber-soft);
+    color:var(--ink-soft);
     font-size:0.92rem;
   }
   .placeholder{
-    color:var(--brick);
+    color:#A15C4A;
     font-style:italic;
   }
 
-  /* --- Venue card --- */
+  /* --- Venue cards --- */
+  .venue-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
   .venue-card{
-    background:var(--plaster-deep);
+    background:var(--paper-soft);
     border-radius:2px;
-    padding:36px 32px;
+    overflow:hidden;
     text-align:center;
     position:relative;
   }
-  .venue-card::before{
-    content:"";
-    position:absolute;
-    top:0; left:50%;
-    transform:translateX(-50%);
-    width:52px; height:2px;
-    background:var(--gold);
+  .venue-photo{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+    display:block;
   }
+  .venue-photo-fallback{
+    width:100%;
+    height:170px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+      repeating-linear-gradient(45deg, transparent, transparent 22px, rgba(46,43,38,0.06) 22px, rgba(46,43,38,0.06) 24px),
+      repeating-linear-gradient(-45deg, transparent, transparent 22px, rgba(46,43,38,0.06) 22px, rgba(46,43,38,0.06) 24px);
+  }
+  .venue-photo-fallback span{
+    font-size:0.78rem;
+    background:var(--paper);
+    padding:6px 12px;
+    border-radius:2px;
+    color:#A15C4A;
+    font-style:italic;
+  }
+  .venue-body{ padding:26px 20px 30px; }
   .venue-card h3{
     font-family:'Fraunces', serif;
-    font-size:1.5rem;
+    font-size:1.25rem;
     font-weight:600;
-    margin:0 0 8px;
+    margin:0 0 6px;
   }
-  .venue-card p{ margin:6px 0; color:var(--timber-soft); }
+  .venue-card p{ margin:4px 0; color:var(--ink-soft); font-size:0.94rem; }
   .venue-note{
-    margin-top:18px;
-    font-size:0.92rem;
-    color:var(--sage);
-    max-width:44ch;
-    margin-left:auto;
-    margin-right:auto;
+    margin-top:14px;
+    font-size:0.86rem;
+    color:var(--eucalyptus-deep);
+  }
+
+  @media (max-width:640px){
+    .venue-grid{ grid-template-columns:1fr; }
   }
 
   /* --- RSVP --- */
@@ -245,8 +325,8 @@
     display:inline-block;
     margin-top:22px;
     padding:14px 34px;
-    background:var(--timber);
-    color:var(--plaster);
+    background:var(--ink);
+    color:var(--paper);
     text-decoration:none;
     font-family:'Jost', sans-serif;
     font-weight:600;
@@ -256,11 +336,11 @@
     border-radius:1px;
     transition:transform 0.25s ease, background 0.25s ease;
   }
-  .rsvp-button:hover{ background:var(--brick); transform:translateY(-2px); }
+  .rsvp-button:hover{ background:var(--cornflower); transform:translateY(-2px); }
   .rsvp-deadline{
     margin-top:16px;
     font-size:0.88rem;
-    color:var(--timber-soft);
+    color:var(--ink-soft);
   }
 
   /* --- Info accordion --- */
@@ -269,7 +349,7 @@
     gap:14px;
   }
   details{
-    border-bottom:1px solid var(--plaster-deep);
+    border-bottom:1px solid var(--paper-soft);
     padding:18px 4px;
   }
   details summary{
@@ -287,28 +367,31 @@
     content:"+";
     font-family:'Jost', sans-serif;
     font-weight:400;
-    color:var(--gold);
+    color:var(--cornflower);
     font-size:1.4rem;
     transition:transform 0.25s ease;
   }
   details[open] summary::after{ transform:rotate(45deg); }
-  details p{ color:var(--timber-soft); margin-top:12px; }
+  details p{ color:var(--ink-soft); margin-top:12px; }
+  details .park-sub{ margin-top:16px; }
+  details .park-sub strong{ display:block; color:var(--ink); margin-bottom:4px; }
 
   /* --- Footer --- */
   footer{
     text-align:center;
     padding:70px 24px 50px;
+    position:relative;
   }
   footer .names-small{
     font-family:'Fraunces', serif;
     font-size:1.4rem;
     font-weight:600;
   }
-  footer .names-small .amp{ color:var(--gold); font-style:italic; font-weight:300; }
+  footer .names-small .amp{ color:var(--cornflower); font-style:italic; font-weight:300; }
   footer .foot-note{
     margin-top:10px;
     font-size:0.85rem;
-    color:var(--timber-soft);
+    color:var(--ink-soft);
   }
 
   /* --- Reveal on scroll --- */
@@ -323,38 +406,153 @@
   }
 
   /* --- Focus visibility --- */
-  a:focus-visible, summary:focus-visible, .rsvp-button:focus-visible{
-    outline:2px solid var(--gold);
+  a:focus-visible, summary:focus-visible, .rsvp-button:focus-visible, .lang-switch button:focus-visible{
+    outline:2px solid var(--cornflower);
     outline-offset:3px;
   }
 
   @media (max-width:520px){
     .timeline li{ grid-template-columns:70px 1fr; gap:14px; }
     section{ padding:64px 0; }
+    .corner-spray{ width:130px; height:130px; }
+    .divider svg{ height:46px; }
   }
 </style>
 </head>
-<body>
+<body class="de">
 
 <!-- ============================================================
-  BEARBEITEN: Alle Stellen mit [in eckigen Klammern] oder der
-  Klasse "placeholder" sind Platzhalter. Einfach im Text suchen
-  (Strg+F) und ersetzen.
+  BEARBEITEN / EDITAR:
+  - Alles mit der Klasse "placeholder" oder [in Klammern] ist ein
+    Platzhalter zum Ersetzen (Strg+F).
+  - Fotos: "foto.jpg" (Paar) und "hotel-northeim.jpg" müssen im
+    selben Ordner wie diese index.html liegen.
+  - Deutsche Texte stehen in <span class="lang-de">, portugiesische
+    in <span class="lang-pt">.
 ============================================================ -->
 
+<!-- Botanical illustration sprite: reused across corners and dividers -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="fl-eucalyptus">
+      <path d="M0,140 C10,110 5,80 20,50 C30,30 25,15 35,0" fill="none" stroke="var(--eucalyptus-deep)" stroke-width="2"/>
+      <ellipse cx="8" cy="120" rx="9" ry="15" fill="var(--eucalyptus)" transform="rotate(-30 8 120)"/>
+      <ellipse cx="18" cy="95" rx="8" ry="13" fill="var(--eucalyptus)" transform="rotate(35 18 95)"/>
+      <ellipse cx="10" cy="70" rx="8" ry="13" fill="var(--eucalyptus)" transform="rotate(-25 10 70)"/>
+      <ellipse cx="22" cy="45" rx="7" ry="11" fill="var(--eucalyptus)" transform="rotate(30 22 45)"/>
+      <ellipse cx="28" cy="20" rx="6" ry="10" fill="var(--eucalyptus)" transform="rotate(-20 28 20)"/>
+    </g>
+
+    <g id="fl-gypsophila" stroke="var(--ink-soft)" stroke-width="0.7" fill="none">
+      <path d="M0,70 C5,50 2,35 10,20"/>
+      <path d="M10,20 C15,15 20,12 25,5"/>
+      <path d="M10,20 C8,12 12,8 8,0"/>
+      <path d="M0,70 C-5,55 -8,40 -10,25"/>
+      <g fill="#fff" stroke="var(--ink-soft)" stroke-width="0.6">
+        <path d="M25,5 l2,-3 l2,3 l3,-1 l-2,3 l2,3 l-3,-1 l-2,3 l-2,-3 l-3,1 l2,-3 z"/>
+        <path d="M8,0 l1.5,-2 l1.5,2 l2,-0.7 l-1.3,2 l1.3,2 l-2,-0.7 l-1.5,2 l-1.5,-2 l-2,0.7 l1.3,-2 z"/>
+        <circle cx="-10" cy="25" r="2.2"/>
+        <circle cx="-5" cy="10" r="2"/>
+        <circle cx="15" cy="18" r="2"/>
+      </g>
+    </g>
+
+    <g id="fl-gladiolus">
+      <line x1="10" y1="150" x2="10" y2="0" stroke="var(--eucalyptus-deep)" stroke-width="2"/>
+      <g fill="#fff" stroke="var(--ink-soft)" stroke-width="0.7">
+        <path d="M10,130 C0,120 0,105 10,100 C20,105 20,120 10,130 Z"/>
+        <path d="M10,105 C2,97 2,85 10,80 C18,85 18,97 10,105 Z"/>
+        <path d="M10,80 C3,73 3,63 10,58 C17,63 17,73 10,80 Z"/>
+        <path d="M10,58 C4,52 4,44 10,40 C16,44 16,52 10,58 Z"/>
+        <path d="M10,40 C5,35 5,28 10,22 C15,28 15,35 10,40 Z"/>
+        <path d="M10,22 C6,18 6,12 10,6 C14,12 14,18 10,22 Z"/>
+      </g>
+    </g>
+
+    <g id="fl-delphinium" fill="var(--delphinium)">
+      <line x1="8" y1="140" x2="8" y2="0" stroke="var(--eucalyptus-deep)" stroke-width="1.6"/>
+      <g transform="translate(8,120)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
+      <g transform="translate(8,100) scale(0.95)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
+      <g transform="translate(8,80) scale(0.88)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
+      <g transform="translate(8,60) scale(0.8)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
+      <g transform="translate(8,40) scale(0.7)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
+      <g transform="translate(8,22) scale(0.6)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
+    </g>
+
+    <g id="fl-thistle">
+      <path d="M10,120 C8,90 12,60 10,30" fill="none" stroke="var(--eucalyptus-deep)" stroke-width="2"/>
+      <ellipse cx="0" cy="95" rx="10" ry="4" fill="var(--eucalyptus)" transform="rotate(-15 0 95)"/>
+      <ellipse cx="20" cy="70" rx="10" ry="4" fill="var(--eucalyptus)" transform="rotate(15 20 70)"/>
+      <circle cx="10" cy="14" r="13" fill="var(--thistle)"/>
+      <g stroke="var(--thistle)" stroke-width="1">
+        <line x1="10" y1="1" x2="10" y2="-5"/>
+        <line x1="21" y1="6" x2="26" y2="1"/>
+        <line x1="23" y1="14" x2="29" y2="14"/>
+        <line x1="21" y1="22" x2="26" y2="27"/>
+        <line x1="10" y1="27" x2="10" y2="33"/>
+        <line x1="-1" y1="22" x2="-6" y2="27"/>
+        <line x1="-3" y1="14" x2="-9" y2="14"/>
+        <line x1="-1" y1="6" x2="-6" y2="1"/>
+      </g>
+    </g>
+
+    <g id="fl-lavender" fill="var(--lavender)">
+      <line x1="6" y1="110" x2="6" y2="0" stroke="var(--eucalyptus-deep)" stroke-width="1.4"/>
+      <ellipse cx="6" cy="10" rx="3" ry="5"/>
+      <ellipse cx="6" cy="20" rx="3.2" ry="5.5"/>
+      <ellipse cx="6" cy="31" rx="3.4" ry="6"/>
+      <ellipse cx="6" cy="43" rx="3.6" ry="6.5"/>
+      <ellipse cx="6" cy="56" rx="3.8" ry="7"/>
+    </g>
+
+    <g id="fl-cornflower">
+      <line x1="0" y1="60" x2="0" y2="8" stroke="var(--eucalyptus-deep)" stroke-width="1.6"/>
+      <path fill="var(--cornflower)" d="M0,0 L2,-8 L4,-2 L9,-6 L6,0 L11,3 L4,3 L5,9 L0,4 L-5,9 L-4,3 L-11,3 L-6,0 L-9,-6 L-4,-2 L-2,-8 Z" transform="translate(0,8)"/>
+      <circle cx="0" cy="8" r="2.2" fill="var(--ink-soft)"/>
+    </g>
+
+    <g id="fl-corner-spray">
+      <use href="#fl-eucalyptus" transform="translate(10,60) rotate(-8)"/>
+      <use href="#fl-eucalyptus" transform="translate(40,50) rotate(10) scale(0.85)"/>
+      <use href="#fl-gladiolus" transform="translate(55,40) rotate(-6) scale(0.8)"/>
+      <use href="#fl-delphinium" transform="translate(78,45) rotate(4) scale(0.75)"/>
+      <use href="#fl-thistle" transform="translate(30,72) rotate(-10) scale(0.65)"/>
+      <use href="#fl-lavender" transform="translate(95,58) rotate(8) scale(0.7)"/>
+      <use href="#fl-cornflower" transform="translate(68,22) scale(1.1)"/>
+      <use href="#fl-gypsophila" transform="translate(15,28) scale(1.15)"/>
+      <use href="#fl-gypsophila" transform="translate(98,32) scale(0.9) rotate(15)"/>
+    </g>
+
+    <g id="fl-sprig">
+      <use href="#fl-eucalyptus" transform="translate(-30,10) scale(0.4) rotate(90)"/>
+      <use href="#fl-cornflower" transform="translate(0,-14) scale(0.9)"/>
+      <use href="#fl-gypsophila" transform="translate(24,4) scale(0.55) rotate(-20)"/>
+      <use href="#fl-gypsophila" transform="translate(-22,4) scale(0.55) rotate(20) scale(-1,1)"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="lang-switch">
+  <button type="button" class="active" data-lang="de">DE</button>
+  <button type="button" data-lang="pt">PT</button>
+</div>
+
 <header class="hero">
-  <div class="hero-frame" aria-hidden="true">
-    <svg width="100%" height="100%" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
-      <line class="brace-line" x1="0" y1="0" x2="800" y2="800"/>
-      <line class="brace-line" x1="800" y1="0" x2="0" y2="800"/>
-      <line class="brace-line" x1="0" y1="400" x2="800" y2="400"/>
-      <line class="brace-line accent" x1="400" y1="0" x2="400" y2="800"/>
-    </svg>
-  </div>
+  <svg class="corner-spray tl" viewBox="0 0 220 220" aria-hidden="true"><use href="#fl-corner-spray"/></svg>
+  <svg class="corner-spray br" viewBox="0 0 220 220" aria-hidden="true"><use href="#fl-corner-spray"/></svg>
+
   <div class="hero-content">
-    <p class="eyebrow">Wir heiraten</p>
+    <div class="hero-photo">
+      <img src="foto.jpg" alt="Ana &amp; Timo" onerror="this.closest('.hero-photo').style.display='none'">
+    </div>
+    <p class="eyebrow">
+      <span class="lang-de">Wir heiraten</span><span class="lang-pt">Vamos nos casar</span>
+    </p>
     <h1 class="names">Ana <span class="amp">&amp;</span> Timo</h1>
-    <p class="hero-date">Freitag, <strong>28. August 2026</strong> · ab 10:00 Uhr</p>
+    <p class="hero-date">
+      <span class="lang-de">Freitag, <strong>28. August 2026</strong> · ab 10:00 Uhr</span>
+      <span class="lang-pt">Sexta-feira, <strong>28 de agosto de 2026</strong> · a partir das 10h</span>
+    </p>
     <p class="hero-place">Einbeck</p>
   </div>
 </header>
@@ -364,138 +562,165 @@
   <section class="tight reveal">
     <div class="wrap">
       <p class="lede">
-        In der alten Fachwerkstadt Einbeck, zwischen schiefen Balken und
-        jahrhundertealten Giebeln, sagen wir Ja zueinander — und würden
-        uns riesig freuen, wenn ihr dabei seid.
+        <span class="lang-de">Wir sagen Ja und laden Euch herzlich zu unserer Hochzeit am Freitag, den 28. August 2026! Gerne möchten wir diesen Tag mit Euch feiern.</span>
+        <span class="lang-pt">Vamos dizer sim e adoraríamos convidar vocês para o nosso casamento na sexta-feira, dia 28 de agosto de 2026! Ficaríamos muito felizes em celebrar esse dia ao lado de vocês.</span>
       </p>
     </div>
   </section>
 
-  <div class="brace" aria-hidden="true">
-    <svg width="80" height="24" viewBox="0 0 80 24">
-      <line class="brace-line" x1="0" y1="0" x2="80" y2="24"/>
-      <line class="brace-line" x1="80" y1="0" x2="0" y2="24"/>
-    </svg>
+  <div class="divider" aria-hidden="true">
+    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
   </div>
 
   <section class="reveal" id="ablauf">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Der Tag</p>
-        <h2>Ablauf</h2>
+        <p class="eyebrow"><span class="lang-de">Der Tag</span><span class="lang-pt">O dia</span></p>
+        <h2><span class="lang-de">Ablauf</span><span class="lang-pt">Programação</span></h2>
       </div>
       <ul class="timeline">
         <li>
           <span class="t-time">10:00</span>
           <span class="t-what">
-            <strong>Trauung</strong>
-            <span class="placeholder">[Ort der Trauung einfügen]</span>
+            <strong><span class="lang-de">Standesamtliche Trauung</span><span class="lang-pt">Cerimônia civil</span></strong>
+            <span>Altes Rathaus Einbeck — Marktpl. 6, 37574 Einbeck</span>
           </span>
         </li>
         <li>
-          <span class="t-time placeholder">[Zeit]</span>
+          <span class="t-time">11:00</span>
           <span class="t-what">
-            <strong class="placeholder">[Empfang / Sektempfang einfügen]</strong>
-            <span class="placeholder">[Ort einfügen]</span>
+            <strong><span class="lang-de">Feier</span><span class="lang-pt">Celebração</span></strong>
+            <span>Hotel FREIgeist Northeim — Am Gesundbrunnen, 37154 Northeim</span>
           </span>
         </li>
         <li>
-          <span class="t-time placeholder">[Zeit]</span>
+          <span class="t-time">15:00</span>
           <span class="t-what">
-            <strong class="placeholder">[Abendessen einfügen]</strong>
-            <span class="placeholder">[Ort einfügen]</span>
-          </span>
-        </li>
-        <li>
-          <span class="t-time placeholder">[Zeit]</span>
-          <span class="t-what">
-            <strong class="placeholder">[Party / Tanz einfügen]</strong>
-            <span class="placeholder">[Ort einfügen]</span>
+            <strong><span class="lang-de">Kuchen &amp; Abschied</span><span class="lang-pt">Bolo &amp; despedida</span></strong>
+            <span>Hotel FREIgeist Northeim</span>
           </span>
         </li>
       </ul>
     </div>
   </section>
 
-  <div class="brace" aria-hidden="true">
-    <svg width="80" height="24" viewBox="0 0 80 24">
-      <line class="brace-line accent" x1="0" y1="0" x2="80" y2="24"/>
-      <line class="brace-line accent" x1="80" y1="0" x2="0" y2="24"/>
-    </svg>
+  <div class="divider" aria-hidden="true">
+    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
   </div>
 
   <section class="reveal" id="ort">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Location</p>
-        <h2>Ort</h2>
+        <p class="eyebrow"><span class="lang-de">Locations</span><span class="lang-pt">Locais</span></p>
+        <h2><span class="lang-de">Ort</span><span class="lang-pt">Onde será</span></h2>
       </div>
-      <div class="venue-card">
-        <h3 class="placeholder">[Name der Location einfügen]</h3>
-        <p class="placeholder">[Straße, Hausnummer]</p>
-        <p class="placeholder">[PLZ] Einbeck</p>
-        <p class="venue-note">
-          Einbeck ist bekannt für seine gut erhaltenen Fachwerkhäuser und
-          seine lange Braugeschichte — kommt gern etwas früher und
-          schaut euch die Altstadt an.
-        </p>
+      <div class="venue-grid">
+        <div class="venue-card">
+          <img class="venue-photo" src="https://commons.wikimedia.org/wiki/Special:FilePath/Altes%20Rathaus%20Einbeck%20IMG%203654.jpg" alt="Altes Rathaus Einbeck" onerror="this.style.display='none'">
+          <div class="venue-body">
+            <h3>Altes Rathaus Einbeck</h3>
+            <p><span class="lang-de">Standesamt</span><span class="lang-pt">Cartório</span> · Marktplatz 6, 37574 Einbeck</p>
+            <p class="venue-note">
+              <span class="lang-de">Das Fachwerk-Rathaus aus dem 16. Jahrhundert ist eines der Wahrzeichen der Einbecker Altstadt.</span>
+              <span class="lang-pt">O prédio histórico em estilo enxaimel do século 16 é um dos símbolos do centro histórico de Einbeck.</span>
+            </p>
+          </div>
+        </div>
+        <div class="venue-card">
+          <img class="venue-photo" src="hotel-northeim.jpg" alt="Hotel FREIgeist Northeim" onerror="this.style.display='none'">
+          <div class="venue-body">
+            <h3>Hotel FREIgeist Northeim</h3>
+            <p><span class="lang-de">Feier &amp; Kuchen</span><span class="lang-pt">Celebração &amp; bolo</span> · Am Gesundbrunnen, 37154 Northeim</p>
+            <p class="venue-note">
+              <span class="lang-de">Modernes Hotel im Grünen am Northeimer Wieter Wald, mitten in der Natur.</span>
+              <span class="lang-pt">Hotel moderno cercado pela floresta de Northeim, em plena natureza.</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="brace" aria-hidden="true">
-    <svg width="80" height="24" viewBox="0 0 80 24">
-      <line class="brace-line" x1="0" y1="0" x2="80" y2="24"/>
-      <line class="brace-line" x1="80" y1="0" x2="0" y2="24"/>
-    </svg>
+  <div class="divider" aria-hidden="true">
+    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
   </div>
 
   <section class="reveal" id="rsvp">
     <div class="wrap rsvp-box">
       <div class="section-head">
-        <p class="eyebrow">Zusage</p>
+        <p class="eyebrow"><span class="lang-de">Zusage</span><span class="lang-pt">Confirmação</span></p>
         <h2>RSVP</h2>
       </div>
       <p class="lede">
-        Lasst uns bitte wissen, ob ihr dabei sein könnt — wir freuen uns
-        auf jede Nachricht.
+        <span class="lang-de">Lasst uns bitte wissen, ob ihr dabei sein könnt — wir freuen uns auf jede Nachricht.</span>
+        <span class="lang-pt">Avisem se poderão vir — vamos adorar receber a confirmação de vocês.</span>
       </p>
-      <a class="rsvp-button" href="mailto:[eure-email@einfuegen.de]?subject=Zusage%20Hochzeit%20Ana%20%26%20Timo">
-        Jetzt zusagen
+      <a class="rsvp-button" href="mailto:ts-hochzeit@zoj.de?subject=Zusage%20Hochzeit%20Ana%20%26%20Timo">
+        <span class="lang-de">Jetzt zusagen</span><span class="lang-pt">Confirmar presença</span>
       </a>
-      <p class="rsvp-deadline">Rückmeldung bitte bis zum <span class="placeholder">[Datum einfügen]</span></p>
+      <p class="rsvp-deadline">
+        <span class="lang-de">Rückmeldung bitte bis zum <strong>01. August 2026</strong></span>
+        <span class="lang-pt">Por favor, confirmem até <strong>1 de agosto de 2026</strong></span>
+      </p>
     </div>
   </section>
 
-  <div class="brace" aria-hidden="true">
-    <svg width="80" height="24" viewBox="0 0 80 24">
-      <line class="brace-line" x1="0" y1="0" x2="80" y2="24"/>
-      <line class="brace-line" x1="80" y1="0" x2="0" y2="24"/>
-    </svg>
+  <div class="divider" aria-hidden="true">
+    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
   </div>
 
   <section class="reveal" id="info">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Gut zu wissen</p>
-        <h2>Weitere Infos</h2>
+        <p class="eyebrow"><span class="lang-de">Gut zu wissen</span><span class="lang-pt">Bom saber</span></p>
+        <h2><span class="lang-de">Weitere Infos</span><span class="lang-pt">Mais informações</span></h2>
       </div>
       <div class="info-grid">
         <details>
-          <summary>Kleidung</summary>
-          <p class="placeholder">[Dresscode einfügen, z. B. "Festlich, gerne in warmen Herbsttönen"]</p>
+          <summary><span class="lang-de">Kleidung</span><span class="lang-pt">Vestimenta</span></summary>
+          <p>
+            <span class="lang-de">Wir freuen uns, wenn ihr euch chic und festlich kleidet — gerne in warmen, gedeckten Sommerfarben. Ein Teil des Tages findet im Freien statt, daher empfehlen wir bequeme Schuhe und: unbedingt eine Sonnenbrille einpacken!</span>
+            <span class="lang-pt">Ficaríamos felizes em ver vocês com um traje chique e festivo — tons quentes e suaves de verão são bem-vindos. Parte do dia será ao ar livre, então recomendamos sapatos confortáveis e não esqueçam de trazer óculos de sol!</span>
+          </p>
         </details>
         <details>
-          <summary>Übernachtung</summary>
-          <p class="placeholder">[Hotelempfehlungen oder Zimmerkontingent in Einbeck einfügen]</p>
+          <summary><span class="lang-de">Übernachtung</span><span class="lang-pt">Hospedagem</span></summary>
+          <p>
+            <span class="lang-de">Für alle, die von außerhalb anreisen, empfehlen wir das Hotel FREIgeist Einbeck — nur wenige Gehminuten von der Altstadt entfernt.<br>
+            Tiedexer Tor 5, 37574 Einbeck<br>
+            Zimmerreservierung: +49 (0)551 30381763<br>
+            Website: <a href="https://www.freigeist-hotels.de/de/freigeist-hotels/freigeist-einbeck/" target="_blank" rel="noopener">freigeist-hotels.de/freigeist-einbeck</a><br>
+            Wir empfehlen, frühzeitig zu buchen.</span>
+            <span class="lang-pt">Para quem vem de fora, recomendamos o Hotel FREIgeist Einbeck — a poucos minutos a pé do centro histórico.<br>
+            Tiedexer Tor 5, 37574 Einbeck<br>
+            Reservas: +49 (0)551 30381763<br>
+            Site: <a href="https://www.freigeist-hotels.de/de/freigeist-hotels/freigeist-einbeck/" target="_blank" rel="noopener">freigeist-hotels.de/freigeist-einbeck</a><br>
+            Recomendamos reservar com antecedência.</span>
+          </p>
         </details>
         <details>
-          <summary>Geschenke</summary>
-          <p class="placeholder">[Wunschliste, Spendenkonto o. Ä. einfügen]</p>
+          <summary><span class="lang-de">Geschenke</span><span class="lang-pt">Presentes</span></summary>
+          <p>
+            <span class="lang-de">Fürs Erste freuen wir uns über eine kleine Aufmerksamkeit über unser PayPal-Konto: <span class="placeholder">[PayPal-Name/Link einfügen]</span>. Weitere Infos folgen.</span>
+            <span class="lang-pt">Por enquanto, ficamos felizes com uma contribuição via nossa conta PayPal: <span class="placeholder">[inserir nome/link do PayPal]</span>. Mais informações em breve.</span>
+          </p>
         </details>
         <details>
-          <summary>Anfahrt &amp; Parken</summary>
-          <p class="placeholder">[Parkmöglichkeiten oder ÖPNV-Hinweise einfügen]</p>
+          <summary><span class="lang-de">Anfahrt &amp; Parken</span><span class="lang-pt">Como chegar e estacionar</span></summary>
+          <div class="park-sub">
+            <strong>Standesamt · Altes Rathaus Einbeck</strong>
+            <p>
+              <span class="lang-de">Hier gibt es keinen reservierten Parkplatz. In der Nähe könnt ihr parken: Hullerser Mauer, Tiedexer Straße, Parkplatz Möncheplatz, Parkplatz Breil oder im Parkhaus der Sparkasse in der Knochenhauerstraße.</span>
+              <span class="lang-pt">Não há vaga reservada. Nas proximidades é possível estacionar em: Hullerser Mauer, Tiedexer Straße, no estacionamento Möncheplatz, no estacionamento Breil ou na garagem da Sparkasse, na Knochenhauerstraße.</span>
+            </p>
+          </div>
+          <div class="park-sub">
+            <strong>Hotel FREIgeist Northeim</strong>
+            <p>
+              <span class="lang-de">Das Hotel verfügt über kostenfreie Parkplätze direkt vor Ort, inklusive E-Ladestationen.</span>
+              <span class="lang-pt">O hotel tem estacionamento próprio e gratuito no local, incluindo pontos de recarga elétrica.</span>
+            </p>
+          </div>
         </details>
       </div>
     </div>
@@ -504,32 +729,43 @@
 </main>
 
 <footer>
-  <div class="brace" aria-hidden="true" style="margin-bottom:36px;">
-    <svg width="100" height="30" viewBox="0 0 100 30">
-      <line class="brace-line" x1="0" y1="0" x2="100" y2="30"/>
-      <line class="brace-line" x1="100" y1="0" x2="0" y2="30"/>
-      <line class="brace-line accent" x1="50" y1="0" x2="50" y2="30"/>
-    </svg>
+  <div class="divider" aria-hidden="true" style="margin-bottom:20px;">
+    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
   </div>
   <p class="names-small">Ana <span class="amp">&amp;</span> Timo</p>
-  <p class="foot-note">28. August 2026 · Einbeck · Wir freuen uns auf euch!</p>
+  <p class="foot-note">
+    <span class="lang-de">28. August 2026 · Einbeck · Wir freuen uns auf euch!</span>
+    <span class="lang-pt">28 de agosto de 2026 · Einbeck · Estamos ansiosos por vocês!</span>
+  </p>
 </footer>
 
 <script>
+  // Language toggle
+  var buttons = document.querySelectorAll('.lang-switch button');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var lang = btn.getAttribute('data-lang');
+      document.body.className = lang;
+      document.documentElement.setAttribute('lang', lang);
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+
   // Scroll-reveal for sections, respecting reduced motion.
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!prefersReduced && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
         if (e.isIntersecting) {
           e.target.classList.add('is-visible');
           io.unobserve(e.target);
         }
       });
     }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('is-visible'); });
   }
 </script>
 
