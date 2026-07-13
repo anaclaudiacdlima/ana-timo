@@ -6,21 +6,19 @@
 <title>Ana &amp; Timo — Wir heiraten</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Jost:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
 <style>
 
   :root{
     --paper:#FFFFFF;
-    --paper-soft:#F6F7F2;
+    --paper-soft:#F7F7F3;
     --ink:#2E2B26;
     --ink-soft:#6B6459;
-    --eucalyptus:#93AC8C;
-    --eucalyptus-deep:#5F7A5C;
-    --cornflower:#4C6FA5;
-    --delphinium:#6E86B8;
-    --thistle:#8477A8;
-    --lavender:#9C8FC4;
-    --max: 760px;
+    --blush:#C98B8B;
+    --eucalyptus:#5F7A5C;
+    --cornflower:#3E5F9A;
+    --thistle:#7A5FA0;
+    --max: 780px;
   }
 
   *{box-sizing:border-box;}
@@ -34,6 +32,7 @@
     font-weight:400;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
 
   h1,h2,.display{
@@ -70,7 +69,7 @@
     position:fixed;
     top:18px;
     right:18px;
-    z-index:20;
+    z-index:30;
     display:flex;
     background:var(--paper);
     border:1px solid var(--paper-soft);
@@ -95,27 +94,31 @@
     color:var(--paper);
   }
 
-  /* --- Floral corner ornaments --- */
-  .corner-spray{
+  /* --- Floral accents (individual, floating, 3D-ish) --- */
+  .floral-accent{
     position:absolute;
-    width:220px;
-    height:220px;
     pointer-events:none;
-    opacity:0.9;
+    z-index:0;
   }
-  .corner-spray.tl{ top:0; left:0; }
-  .corner-spray.br{ bottom:0; right:0; transform:rotate(180deg); }
+  .floral-accent svg{ width:100%; height:100%; display:block; }
+  .float-slow{ animation:float 7s ease-in-out infinite; }
+  .float-slow.delay{ animation-delay:2.4s; }
+  @keyframes float{
+    0%, 100%{ transform:translateY(0) rotate(var(--r, 0deg)); }
+    50%{ transform:translateY(-10px) rotate(var(--r, 0deg)); }
+  }
 
-  /* --- Floral divider --- */
   .divider{
     display:flex;
     justify-content:center;
+    align-items:center;
     margin:0 auto;
+    padding:8px 0;
   }
-  .divider svg{ display:block; height:64px; width:auto; }
+  .divider svg{ display:block; height:70px; width:auto; }
 
   @media (prefers-reduced-motion: reduce){
-    .hero-photo, .hero .eyebrow, .names, .hero-date, .hero-place, .reveal{
+    .hero-photo, .hero .eyebrow, .names, .hero-date, .hero-tagline, .hero-place, .reveal, .float-slow{
       animation:none !important;
       opacity:1 !important;
       transform:none !important;
@@ -126,28 +129,36 @@
   .hero{
     min-height:100svh;
     display:flex;
-    flex-direction:column;
     align-items:center;
     justify-content:center;
-    text-align:center;
     position:relative;
-    padding:60px 24px;
+    padding:100px 24px 60px;
     overflow:hidden;
+    background:radial-gradient(ellipse at 50% 20%, #FBF5F2 0%, #FFFFFF 60%);
   }
 
-  .hero-content{
+  .hero-inner{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:56px;
+    align-items:center;
+    max-width:1040px;
+    margin:0 auto;
+    width:100%;
     position:relative;
     z-index:1;
   }
 
+  .hero-content{ text-align:center; }
+
   .hero-photo{
-    width:168px;
-    height:168px;
+    width:260px;
+    height:260px;
     border-radius:50%;
     overflow:hidden;
-    margin:0 auto 26px;
-    border:3px solid var(--paper);
-    box-shadow:0 0 0 1px var(--eucalyptus), 0 10px 30px rgba(46,43,38,0.15);
+    margin:0 auto 30px;
+    border:5px solid var(--paper);
+    box-shadow:0 0 0 1px rgba(95,122,92,0.4), 0 18px 45px rgba(46,43,38,0.16);
     opacity:0;
     animation:rise 0.9s ease forwards;
   }
@@ -160,28 +171,41 @@
 
   .hero .eyebrow{ opacity:0; animation:rise 0.9s ease forwards; animation-delay:0.1s; }
 
-  .names{
-    font-size:clamp(2.8rem, 9vw, 5.2rem);
-    line-height:1.05;
-    margin:18px 0 6px;
+  .hero-tagline{
+    font-family:'Parisienne', cursive;
+    font-size:1.4rem;
+    color:var(--blush);
+    margin-top:2px;
     opacity:0;
     animation:rise 0.9s ease forwards;
-    animation-delay:0.28s;
+    animation-delay:0.2s;
+  }
+
+  .names{
+    font-size:clamp(2.8rem, 8vw, 4.8rem);
+    line-height:1.05;
+    margin:14px 0 6px;
+    opacity:0;
+    animation:rise 0.9s ease forwards;
+    animation-delay:0.34s;
   }
   .names .amp{
-    color:var(--cornflower);
-    font-style:italic;
-    font-weight:300;
-    padding:0 0.15em;
+    font-family:'Parisienne', cursive;
+    color:var(--blush);
+    font-weight:400;
+    font-size:0.75em;
+    padding:0 0.12em;
+    display:inline-block;
+    transform:translateY(0.06em);
   }
 
   .hero-date{
     font-size:1.05rem;
     color:var(--ink-soft);
-    margin-top:14px;
+    margin-top:16px;
     opacity:0;
     animation:rise 0.9s ease forwards;
-    animation-delay:0.46s;
+    animation-delay:0.5s;
   }
   .hero-date strong{ color:var(--ink); font-weight:600; }
 
@@ -190,10 +214,10 @@
     font-size:0.95rem;
     letter-spacing:0.08em;
     text-transform:uppercase;
-    color:var(--eucalyptus-deep);
+    color:var(--eucalyptus);
     opacity:0;
     animation:rise 0.9s ease forwards;
-    animation-delay:0.6s;
+    animation-delay:0.62s;
   }
 
   @keyframes rise{
@@ -201,20 +225,84 @@
     to{ opacity:1; transform:translateY(0); }
   }
 
-  /* --- Section rhythm --- */
-  section{
-    padding:88px 0;
-  }
-  section.tight{ padding:64px 0; }
-
-  .section-head{
+  /* --- Countdown card --- */
+  .countdown-card{
+    background:var(--paper);
+    border-radius:18px;
+    padding:30px 26px;
+    box-shadow:0 12px 40px rgba(46,43,38,0.09);
+    border:1px solid var(--paper-soft);
     text-align:center;
-    margin-bottom:44px;
+    opacity:0;
+    animation:rise 0.9s ease forwards;
+    animation-delay:0.7s;
+    position:relative;
   }
-  .section-head h2{
-    font-size:clamp(1.7rem, 4vw, 2.3rem);
-    margin-top:10px;
+  .countdown-eyebrow{
+    font-size:0.68rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    font-weight:600;
+    margin-bottom:6px;
   }
+  .countdown-days{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:3.2rem;
+    color:var(--cornflower);
+    line-height:1;
+  }
+  .countdown-days-label{
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    margin-top:4px;
+    margin-bottom:22px;
+  }
+  .mini-cal{
+    border-top:1px solid var(--paper-soft);
+    padding-top:18px;
+  }
+  .mini-cal-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:0.95rem;
+    margin-bottom:12px;
+  }
+  .mini-cal-grid{
+    display:grid;
+    grid-template-columns:repeat(7, 1fr);
+    gap:4px;
+    font-size:0.72rem;
+  }
+  .mini-cal-grid .dow{
+    color:var(--ink-soft);
+    font-weight:600;
+    padding-bottom:4px;
+  }
+  .mini-cal-grid .day{
+    padding:5px 0;
+    border-radius:50%;
+    color:var(--ink-soft);
+  }
+  .mini-cal-grid .day.the-day{
+    background:var(--cornflower);
+    color:var(--paper);
+    font-weight:700;
+    position:relative;
+  }
+
+  @media (max-width:860px){
+    .hero-inner{ grid-template-columns:1fr; gap:34px; }
+    .hero{ padding:90px 20px 50px; }
+  }
+
+  /* --- Section rhythm --- */
+  section{ padding:80px 0; position:relative; }
+  section.tight{ padding:56px 0; }
+
+  .section-head{ text-align:center; margin-bottom:44px; }
+  .section-head h2{ font-size:clamp(1.7rem, 4vw, 2.3rem); margin-top:10px; }
 
   .lede{
     text-align:center;
@@ -225,14 +313,7 @@
   }
 
   /* --- Timeline --- */
-  .timeline{
-    list-style:none;
-    margin:0;
-    padding:0;
-    display:flex;
-    flex-direction:column;
-    gap:0;
-  }
+  .timeline{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0; }
   .timeline li{
     display:grid;
     grid-template-columns:96px 1fr;
@@ -242,85 +323,34 @@
     align-items:baseline;
   }
   .timeline li:first-child{ border-top:1px solid var(--paper-soft); }
-  .t-time{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:1.15rem;
-    color:var(--cornflower);
-  }
-  .t-what strong{
-    display:block;
-    font-size:1.05rem;
-    margin-bottom:2px;
-  }
-  .t-what span{
-    color:var(--ink-soft);
-    font-size:0.92rem;
-  }
-  .placeholder{
-    color:#A15C4A;
-    font-style:italic;
-  }
+  .t-time{ font-family:'Fraunces', serif; font-weight:600; font-size:1.15rem; color:var(--cornflower); }
+  .t-what strong{ display:block; font-size:1.05rem; margin-bottom:2px; }
+  .t-what span{ color:var(--ink-soft); font-size:0.92rem; }
+  .placeholder{ color:#A15C4A; font-style:italic; }
 
   /* --- Venue cards --- */
-  .venue-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:24px;
-  }
-  .venue-card{
-    background:var(--paper-soft);
-    border-radius:2px;
-    overflow:hidden;
-    text-align:center;
-    position:relative;
-  }
-  .venue-photo{
-    width:100%;
-    height:170px;
-    object-fit:cover;
-    display:block;
-  }
-  .venue-photo-fallback{
-    width:100%;
-    height:170px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:
-      repeating-linear-gradient(45deg, transparent, transparent 22px, rgba(46,43,38,0.06) 22px, rgba(46,43,38,0.06) 24px),
-      repeating-linear-gradient(-45deg, transparent, transparent 22px, rgba(46,43,38,0.06) 22px, rgba(46,43,38,0.06) 24px);
-  }
-  .venue-photo-fallback span{
-    font-size:0.78rem;
-    background:var(--paper);
-    padding:6px 12px;
-    border-radius:2px;
-    color:#A15C4A;
-    font-style:italic;
-  }
+  .venue-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .venue-card{ background:var(--paper-soft); border-radius:8px; overflow:hidden; text-align:center; position:relative; }
+  .venue-photo{ width:100%; height:170px; object-fit:cover; display:block; }
   .venue-body{ padding:26px 20px 30px; }
-  .venue-card h3{
-    font-family:'Fraunces', serif;
-    font-size:1.25rem;
-    font-weight:600;
-    margin:0 0 6px;
-  }
+  .venue-card h3{ font-family:'Fraunces', serif; font-size:1.25rem; font-weight:600; margin:0 0 6px; }
   .venue-card p{ margin:4px 0; color:var(--ink-soft); font-size:0.94rem; }
-  .venue-note{
-    margin-top:14px;
-    font-size:0.86rem;
-    color:var(--eucalyptus-deep);
-  }
+  .venue-note{ margin-top:14px; font-size:0.86rem; color:var(--eucalyptus); }
+  @media (max-width:640px){ .venue-grid{ grid-template-columns:1fr; } }
 
-  @media (max-width:640px){
-    .venue-grid{ grid-template-columns:1fr; }
+  /* --- Photos placeholder --- */
+  .photos-box{
+    border:1.5px dashed var(--paper-soft);
+    background:var(--paper-soft);
+    border-radius:12px;
+    padding:46px 30px;
+    text-align:center;
   }
+  .photos-box svg{ width:40px; height:40px; margin-bottom:14px; }
+  .photos-box p{ color:var(--ink-soft); max-width:44ch; margin:0 auto; }
 
   /* --- RSVP --- */
-  .rsvp-box{
-    text-align:center;
-  }
+  .rsvp-box{ text-align:center; }
   .rsvp-button{
     display:inline-block;
     margin-top:22px;
@@ -337,21 +367,11 @@
     transition:transform 0.25s ease, background 0.25s ease;
   }
   .rsvp-button:hover{ background:var(--cornflower); transform:translateY(-2px); }
-  .rsvp-deadline{
-    margin-top:16px;
-    font-size:0.88rem;
-    color:var(--ink-soft);
-  }
+  .rsvp-deadline{ margin-top:16px; font-size:0.88rem; color:var(--ink-soft); }
 
   /* --- Info accordion --- */
-  .info-grid{
-    display:grid;
-    gap:14px;
-  }
-  details{
-    border-bottom:1px solid var(--paper-soft);
-    padding:18px 4px;
-  }
+  .info-grid{ display:grid; gap:14px; }
+  details{ border-bottom:1px solid var(--paper-soft); padding:18px 4px; }
   details summary{
     cursor:pointer;
     font-family:'Fraunces', serif;
@@ -377,35 +397,15 @@
   details .park-sub strong{ display:block; color:var(--ink); margin-bottom:4px; }
 
   /* --- Footer --- */
-  footer{
-    text-align:center;
-    padding:70px 24px 50px;
-    position:relative;
-  }
-  footer .names-small{
-    font-family:'Fraunces', serif;
-    font-size:1.4rem;
-    font-weight:600;
-  }
-  footer .names-small .amp{ color:var(--cornflower); font-style:italic; font-weight:300; }
-  footer .foot-note{
-    margin-top:10px;
-    font-size:0.85rem;
-    color:var(--ink-soft);
-  }
+  footer{ text-align:center; padding:60px 24px 50px; position:relative; }
+  footer .names-small{ font-family:'Fraunces', serif; font-size:1.4rem; font-weight:600; }
+  footer .names-small .amp{ font-family:'Parisienne', cursive; color:var(--blush); font-weight:400; }
+  footer .foot-note{ margin-top:10px; font-size:0.85rem; color:var(--ink-soft); }
 
   /* --- Reveal on scroll --- */
-  .reveal{
-    opacity:0;
-    transform:translateY(18px);
-    transition:opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.is-visible{
-    opacity:1;
-    transform:translateY(0);
-  }
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
 
-  /* --- Focus visibility --- */
   a:focus-visible, summary:focus-visible, .rsvp-button:focus-visible, .lang-switch button:focus-visible{
     outline:2px solid var(--cornflower);
     outline-offset:3px;
@@ -413,9 +413,9 @@
 
   @media (max-width:520px){
     .timeline li{ grid-template-columns:70px 1fr; gap:14px; }
-    section{ padding:64px 0; }
-    .corner-spray{ width:130px; height:130px; }
-    .divider svg{ height:46px; }
+    section{ padding:56px 0; }
+    .hero-photo{ width:190px; height:190px; }
+    .divider svg{ height:52px; }
   }
 </style>
 </head>
@@ -429,37 +429,75 @@
     selben Ordner wie diese index.html liegen.
   - Deutsche Texte stehen in <span class="lang-de">, portugiesische
     in <span class="lang-pt">.
+  - Die Hochzeits-Fotos (Abschnitt "Fotos") könnt ihr später mit
+    einem echten Link ausfüllen, sobald sie fertig sind.
 ============================================================ -->
 
-<!-- Botanical illustration sprite: reused across corners and dividers -->
+<!-- Botanical illustration sprite: vivid, individually-placed, semi-3D via gradients + drop shadow -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <g id="fl-eucalyptus">
-      <path d="M0,140 C10,110 5,80 20,50 C30,30 25,15 35,0" fill="none" stroke="var(--eucalyptus-deep)" stroke-width="2"/>
-      <ellipse cx="8" cy="120" rx="9" ry="15" fill="var(--eucalyptus)" transform="rotate(-30 8 120)"/>
-      <ellipse cx="18" cy="95" rx="8" ry="13" fill="var(--eucalyptus)" transform="rotate(35 18 95)"/>
-      <ellipse cx="10" cy="70" rx="8" ry="13" fill="var(--eucalyptus)" transform="rotate(-25 10 70)"/>
-      <ellipse cx="22" cy="45" rx="7" ry="11" fill="var(--eucalyptus)" transform="rotate(30 22 45)"/>
-      <ellipse cx="28" cy="20" rx="6" ry="10" fill="var(--eucalyptus)" transform="rotate(-20 28 20)"/>
+    <filter id="fl-shadow" x="-60%" y="-60%" width="220%" height="220%">
+      <feDropShadow dx="1.5" dy="4" stdDeviation="2.5" flood-color="#2E2B26" flood-opacity="0.22"/>
+    </filter>
+
+    <linearGradient id="g-eucalyptus" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#BFE0B0"/>
+      <stop offset="55%" stop-color="#7FAE72"/>
+      <stop offset="100%" stop-color="#4B6B45"/>
+    </linearGradient>
+    <linearGradient id="g-stem" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7FAE72"/>
+      <stop offset="100%" stop-color="#4B6B45"/>
+    </linearGradient>
+    <radialGradient id="g-cornflower" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#8CB2F2"/>
+      <stop offset="55%" stop-color="#4A78D8"/>
+      <stop offset="100%" stop-color="#28468F"/>
+    </radialGradient>
+    <radialGradient id="g-thistle" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#B79BE0"/>
+      <stop offset="60%" stop-color="#8763C4"/>
+      <stop offset="100%" stop-color="#5B3F92"/>
+    </radialGradient>
+    <linearGradient id="g-lavender" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C7AEEA"/>
+      <stop offset="100%" stop-color="#8A63BE"/>
+    </linearGradient>
+    <linearGradient id="g-delphinium" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9DBBF0"/>
+      <stop offset="100%" stop-color="#4667B0"/>
+    </linearGradient>
+    <linearGradient id="g-white-petal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E7E4DC"/>
+    </linearGradient>
+
+    <g id="fl-eucalyptus" filter="url(#fl-shadow)">
+      <path d="M0,140 C10,110 5,80 20,50 C30,30 25,15 35,0" fill="none" stroke="url(#g-stem)" stroke-width="2.4"/>
+      <ellipse cx="8" cy="120" rx="10" ry="16" fill="url(#g-eucalyptus)" transform="rotate(-30 8 120)"/>
+      <ellipse cx="18" cy="95" rx="9" ry="14" fill="url(#g-eucalyptus)" transform="rotate(35 18 95)"/>
+      <ellipse cx="10" cy="70" rx="9" ry="14" fill="url(#g-eucalyptus)" transform="rotate(-25 10 70)"/>
+      <ellipse cx="22" cy="45" rx="8" ry="12" fill="url(#g-eucalyptus)" transform="rotate(30 22 45)"/>
+      <ellipse cx="28" cy="20" rx="7" ry="11" fill="url(#g-eucalyptus)" transform="rotate(-20 28 20)"/>
     </g>
 
-    <g id="fl-gypsophila" stroke="var(--ink-soft)" stroke-width="0.7" fill="none">
+    <g id="fl-gypsophila" filter="url(#fl-shadow)" stroke="#8A8378" stroke-width="0.7" fill="none">
       <path d="M0,70 C5,50 2,35 10,20"/>
       <path d="M10,20 C15,15 20,12 25,5"/>
       <path d="M10,20 C8,12 12,8 8,0"/>
       <path d="M0,70 C-5,55 -8,40 -10,25"/>
-      <g fill="#fff" stroke="var(--ink-soft)" stroke-width="0.6">
+      <g fill="url(#g-white-petal)" stroke="#8A8378" stroke-width="0.6">
         <path d="M25,5 l2,-3 l2,3 l3,-1 l-2,3 l2,3 l-3,-1 l-2,3 l-2,-3 l-3,1 l2,-3 z"/>
         <path d="M8,0 l1.5,-2 l1.5,2 l2,-0.7 l-1.3,2 l1.3,2 l-2,-0.7 l-1.5,2 l-1.5,-2 l-2,0.7 l1.3,-2 z"/>
-        <circle cx="-10" cy="25" r="2.2"/>
-        <circle cx="-5" cy="10" r="2"/>
-        <circle cx="15" cy="18" r="2"/>
+        <circle cx="-10" cy="25" r="2.4"/>
+        <circle cx="-5" cy="10" r="2.2"/>
+        <circle cx="15" cy="18" r="2.2"/>
       </g>
     </g>
 
-    <g id="fl-gladiolus">
-      <line x1="10" y1="150" x2="10" y2="0" stroke="var(--eucalyptus-deep)" stroke-width="2"/>
-      <g fill="#fff" stroke="var(--ink-soft)" stroke-width="0.7">
+    <g id="fl-gladiolus" filter="url(#fl-shadow)">
+      <line x1="10" y1="150" x2="10" y2="0" stroke="url(#g-stem)" stroke-width="2.4"/>
+      <g fill="url(#g-white-petal)" stroke="#B9B3A6" stroke-width="0.7">
         <path d="M10,130 C0,120 0,105 10,100 C20,105 20,120 10,130 Z"/>
         <path d="M10,105 C2,97 2,85 10,80 C18,85 18,97 10,105 Z"/>
         <path d="M10,80 C3,73 3,63 10,58 C17,63 17,73 10,80 Z"/>
@@ -469,65 +507,46 @@
       </g>
     </g>
 
-    <g id="fl-delphinium" fill="var(--delphinium)">
-      <line x1="8" y1="140" x2="8" y2="0" stroke="var(--eucalyptus-deep)" stroke-width="1.6"/>
-      <g transform="translate(8,120)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
-      <g transform="translate(8,100) scale(0.95)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
-      <g transform="translate(8,80) scale(0.88)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
-      <g transform="translate(8,60) scale(0.8)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
-      <g transform="translate(8,40) scale(0.7)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
-      <g transform="translate(8,22) scale(0.6)"><circle r="1.6" cx="0" cy="-5"/><circle r="1.6" cx="4.7" cy="-1.5"/><circle r="1.6" cx="3" cy="4"/><circle r="1.6" cx="-3" cy="4"/><circle r="1.6" cx="-4.7" cy="-1.5"/><circle r="1" cx="0" cy="0" fill="var(--ink-soft)"/></g>
+    <g id="fl-delphinium" filter="url(#fl-shadow)" fill="url(#g-delphinium)">
+      <line x1="8" y1="140" x2="8" y2="0" stroke="url(#g-stem)" stroke-width="2"/>
+      <g transform="translate(8,120)"><circle r="2" cx="0" cy="-5.5"/><circle r="2" cx="5.2" cy="-1.7"/><circle r="2" cx="3.2" cy="4.4"/><circle r="2" cx="-3.2" cy="4.4"/><circle r="2" cx="-5.2" cy="-1.7"/><circle r="1.1" cx="0" cy="0" fill="#2E2B26"/></g>
+      <g transform="translate(8,100) scale(0.95)"><circle r="2" cx="0" cy="-5.5"/><circle r="2" cx="5.2" cy="-1.7"/><circle r="2" cx="3.2" cy="4.4"/><circle r="2" cx="-3.2" cy="4.4"/><circle r="2" cx="-5.2" cy="-1.7"/><circle r="1.1" cx="0" cy="0" fill="#2E2B26"/></g>
+      <g transform="translate(8,80) scale(0.88)"><circle r="2" cx="0" cy="-5.5"/><circle r="2" cx="5.2" cy="-1.7"/><circle r="2" cx="3.2" cy="4.4"/><circle r="2" cx="-3.2" cy="4.4"/><circle r="2" cx="-5.2" cy="-1.7"/><circle r="1.1" cx="0" cy="0" fill="#2E2B26"/></g>
+      <g transform="translate(8,60) scale(0.8)"><circle r="2" cx="0" cy="-5.5"/><circle r="2" cx="5.2" cy="-1.7"/><circle r="2" cx="3.2" cy="4.4"/><circle r="2" cx="-3.2" cy="4.4"/><circle r="2" cx="-5.2" cy="-1.7"/><circle r="1.1" cx="0" cy="0" fill="#2E2B26"/></g>
+      <g transform="translate(8,40) scale(0.7)"><circle r="2" cx="0" cy="-5.5"/><circle r="2" cx="5.2" cy="-1.7"/><circle r="2" cx="3.2" cy="4.4"/><circle r="2" cx="-3.2" cy="4.4"/><circle r="2" cx="-5.2" cy="-1.7"/><circle r="1.1" cx="0" cy="0" fill="#2E2B26"/></g>
+      <g transform="translate(8,22) scale(0.6)"><circle r="2" cx="0" cy="-5.5"/><circle r="2" cx="5.2" cy="-1.7"/><circle r="2" cx="3.2" cy="4.4"/><circle r="2" cx="-3.2" cy="4.4"/><circle r="2" cx="-5.2" cy="-1.7"/><circle r="1.1" cx="0" cy="0" fill="#2E2B26"/></g>
     </g>
 
-    <g id="fl-thistle">
-      <path d="M10,120 C8,90 12,60 10,30" fill="none" stroke="var(--eucalyptus-deep)" stroke-width="2"/>
-      <ellipse cx="0" cy="95" rx="10" ry="4" fill="var(--eucalyptus)" transform="rotate(-15 0 95)"/>
-      <ellipse cx="20" cy="70" rx="10" ry="4" fill="var(--eucalyptus)" transform="rotate(15 20 70)"/>
-      <circle cx="10" cy="14" r="13" fill="var(--thistle)"/>
-      <g stroke="var(--thistle)" stroke-width="1">
-        <line x1="10" y1="1" x2="10" y2="-5"/>
-        <line x1="21" y1="6" x2="26" y2="1"/>
-        <line x1="23" y1="14" x2="29" y2="14"/>
-        <line x1="21" y1="22" x2="26" y2="27"/>
-        <line x1="10" y1="27" x2="10" y2="33"/>
-        <line x1="-1" y1="22" x2="-6" y2="27"/>
-        <line x1="-3" y1="14" x2="-9" y2="14"/>
-        <line x1="-1" y1="6" x2="-6" y2="1"/>
+    <g id="fl-thistle" filter="url(#fl-shadow)">
+      <path d="M10,120 C8,90 12,60 10,30" fill="none" stroke="url(#g-stem)" stroke-width="2.4"/>
+      <ellipse cx="0" cy="95" rx="11" ry="4.5" fill="url(#g-eucalyptus)" transform="rotate(-15 0 95)"/>
+      <ellipse cx="20" cy="70" rx="11" ry="4.5" fill="url(#g-eucalyptus)" transform="rotate(15 20 70)"/>
+      <circle cx="10" cy="14" r="14" fill="url(#g-thistle)"/>
+      <g stroke="#5B3F92" stroke-width="1.1">
+        <line x1="10" y1="0" x2="10" y2="-6"/>
+        <line x1="22" y1="6" x2="27.5" y2="0.5"/>
+        <line x1="24" y1="14" x2="30.5" y2="14"/>
+        <line x1="22" y1="22" x2="27.5" y2="27.5"/>
+        <line x1="10" y1="28" x2="10" y2="34.5"/>
+        <line x1="-2" y1="22" x2="-7.5" y2="27.5"/>
+        <line x1="-4" y1="14" x2="-10.5" y2="14"/>
+        <line x1="-2" y1="6" x2="-7.5" y2="0.5"/>
       </g>
     </g>
 
-    <g id="fl-lavender" fill="var(--lavender)">
-      <line x1="6" y1="110" x2="6" y2="0" stroke="var(--eucalyptus-deep)" stroke-width="1.4"/>
-      <ellipse cx="6" cy="10" rx="3" ry="5"/>
-      <ellipse cx="6" cy="20" rx="3.2" ry="5.5"/>
-      <ellipse cx="6" cy="31" rx="3.4" ry="6"/>
-      <ellipse cx="6" cy="43" rx="3.6" ry="6.5"/>
-      <ellipse cx="6" cy="56" rx="3.8" ry="7"/>
+    <g id="fl-lavender" filter="url(#fl-shadow)" fill="url(#g-lavender)">
+      <line x1="6" y1="110" x2="6" y2="0" stroke="url(#g-stem)" stroke-width="1.8"/>
+      <ellipse cx="6" cy="10" rx="3.4" ry="5.5"/>
+      <ellipse cx="6" cy="20" rx="3.6" ry="6"/>
+      <ellipse cx="6" cy="31" rx="3.8" ry="6.5"/>
+      <ellipse cx="6" cy="43" rx="4" ry="7"/>
+      <ellipse cx="6" cy="56" rx="4.2" ry="7.5"/>
     </g>
 
-    <g id="fl-cornflower">
-      <line x1="0" y1="60" x2="0" y2="8" stroke="var(--eucalyptus-deep)" stroke-width="1.6"/>
-      <path fill="var(--cornflower)" d="M0,0 L2,-8 L4,-2 L9,-6 L6,0 L11,3 L4,3 L5,9 L0,4 L-5,9 L-4,3 L-11,3 L-6,0 L-9,-6 L-4,-2 L-2,-8 Z" transform="translate(0,8)"/>
-      <circle cx="0" cy="8" r="2.2" fill="var(--ink-soft)"/>
-    </g>
-
-    <g id="fl-corner-spray">
-      <use href="#fl-eucalyptus" transform="translate(10,60) rotate(-8)"/>
-      <use href="#fl-eucalyptus" transform="translate(40,50) rotate(10) scale(0.85)"/>
-      <use href="#fl-gladiolus" transform="translate(55,40) rotate(-6) scale(0.8)"/>
-      <use href="#fl-delphinium" transform="translate(78,45) rotate(4) scale(0.75)"/>
-      <use href="#fl-thistle" transform="translate(30,72) rotate(-10) scale(0.65)"/>
-      <use href="#fl-lavender" transform="translate(95,58) rotate(8) scale(0.7)"/>
-      <use href="#fl-cornflower" transform="translate(68,22) scale(1.1)"/>
-      <use href="#fl-gypsophila" transform="translate(15,28) scale(1.15)"/>
-      <use href="#fl-gypsophila" transform="translate(98,32) scale(0.9) rotate(15)"/>
-    </g>
-
-    <g id="fl-sprig">
-      <use href="#fl-eucalyptus" transform="translate(-30,10) scale(0.4) rotate(90)"/>
-      <use href="#fl-cornflower" transform="translate(0,-14) scale(0.9)"/>
-      <use href="#fl-gypsophila" transform="translate(24,4) scale(0.55) rotate(-20)"/>
-      <use href="#fl-gypsophila" transform="translate(-22,4) scale(0.55) rotate(20) scale(-1,1)"/>
+    <g id="fl-cornflower" filter="url(#fl-shadow)">
+      <line x1="0" y1="60" x2="0" y2="8" stroke="url(#g-stem)" stroke-width="2"/>
+      <path fill="url(#g-cornflower)" d="M0,0 L2,-9 L4.5,-2.2 L10,-6.6 L6.6,0 L12,3.3 L4.5,3.3 L5.5,10 L0,4.4 L-5.5,10 L-4.5,3.3 L-12,3.3 L-6.6,0 L-10,-6.6 L-4.5,-2.2 L-2,-9 Z" transform="translate(0,8)"/>
+      <circle cx="0" cy="8" r="2.6" fill="#1E3A6B"/>
     </g>
   </defs>
 </svg>
@@ -538,22 +557,58 @@
 </div>
 
 <header class="hero">
-  <svg class="corner-spray tl" viewBox="0 0 220 220" aria-hidden="true"><use href="#fl-corner-spray"/></svg>
-  <svg class="corner-spray br" viewBox="0 0 220 220" aria-hidden="true"><use href="#fl-corner-spray"/></svg>
 
-  <div class="hero-content">
-    <div class="hero-photo">
-      <img src="foto.jpg" alt="Ana &amp; Timo" onerror="this.closest('.hero-photo').style.display='none'">
+  <div class="floral-accent float-slow" style="--r:-6deg; top:6%; left:3%; width:80px; height:170px;">
+    <svg viewBox="-10 -10 60 160"><use href="#fl-eucalyptus"/></svg>
+  </div>
+  <div class="floral-accent float-slow delay" style="--r:8deg; top:8%; right:4%; width:60px; height:80px;">
+    <svg viewBox="-20 -20 40 80"><use href="#fl-cornflower"/></svg>
+  </div>
+  <div class="floral-accent float-slow" style="--r:-4deg; bottom:5%; left:6%; width:56px; height:130px;">
+    <svg viewBox="-10 -5 30 130"><use href="#fl-thistle"/></svg>
+  </div>
+  <div class="floral-accent float-slow delay" style="--r:5deg; bottom:8%; right:8%; width:50px; height:110px;">
+    <svg viewBox="-8 -5 30 110"><use href="#fl-lavender"/></svg>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-photo">
+        <img src="foto.jpg" alt="Ana &amp; Timo" onerror="this.closest('.hero-photo').style.display='none'">
+      </div>
+      <p class="eyebrow">
+        <span class="lang-de">Wir heiraten</span><span class="lang-pt">Vamos nos casar</span>
+      </p>
+      <p class="hero-tagline">
+        <span class="lang-de">zwei Herzen, ein Weg</span><span class="lang-pt">dois corações, um só caminho</span>
+      </p>
+      <h1 class="names">Ana <span class="amp">&amp;</span> Timo</h1>
+      <p class="hero-date">
+        <span class="lang-de">Freitag, <strong>28. August 2026</strong> · ab 10:00 Uhr</span>
+        <span class="lang-pt">Sexta-feira, <strong>28 de agosto de 2026</strong> · a partir das 10h</span>
+      </p>
+      <p class="hero-place">Einbeck</p>
     </div>
-    <p class="eyebrow">
-      <span class="lang-de">Wir heiraten</span><span class="lang-pt">Vamos nos casar</span>
-    </p>
-    <h1 class="names">Ana <span class="amp">&amp;</span> Timo</h1>
-    <p class="hero-date">
-      <span class="lang-de">Freitag, <strong>28. August 2026</strong> · ab 10:00 Uhr</span>
-      <span class="lang-pt">Sexta-feira, <strong>28 de agosto de 2026</strong> · a partir das 10h</span>
-    </p>
-    <p class="hero-place">Einbeck</p>
+
+    <div class="countdown-card">
+      <p class="countdown-eyebrow"><span class="lang-de">Es sind nur noch</span><span class="lang-pt">Faltam apenas</span></p>
+      <div class="countdown-days" id="countdown-days">–</div>
+      <p class="countdown-days-label"><span class="lang-de">Tage bis zum Ja-Wort</span><span class="lang-pt">dias para o sim</span></p>
+      <div class="mini-cal">
+        <p class="mini-cal-title">
+          <span class="lang-de">August 2026</span><span class="lang-pt">Agosto de 2026</span>
+        </p>
+        <div class="mini-cal-grid">
+          <div class="dow">Mo</div><div class="dow">Di</div><div class="dow">Mi</div><div class="dow">Do</div><div class="dow">Fr</div><div class="dow">Sa</div><div class="dow">So</div>
+          <div></div><div></div><div></div><div></div><div></div><div class="day">1</div><div class="day">2</div>
+          <div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div>
+          <div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div>
+          <div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div>
+          <div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day the-day">28</div><div class="day">29</div><div class="day">30</div>
+          <div class="day">31</div>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -562,14 +617,14 @@
   <section class="tight reveal">
     <div class="wrap">
       <p class="lede">
-        <span class="lang-de">Wir sagen Ja und laden Euch herzlich zu unserer Hochzeit am Freitag, den 28. August 2026! Gerne möchten wir diesen Tag mit Euch feiern.</span>
-        <span class="lang-pt">Vamos dizer sim e adoraríamos convidar vocês para o nosso casamento na sexta-feira, dia 28 de agosto de 2026! Ficaríamos muito felizes em celebrar esse dia ao lado de vocês.</span>
+        <span class="lang-de">Wir sagen Ja und laden Euch herzlich zu unserer Hochzeit am Freitag, den 28. August 2026! Gerne möchten wir diesen besonderen Tag gemeinsam mit den Menschen feiern, die uns am wichtigsten sind.</span>
+        <span class="lang-pt">Vamos dizer sim e adoraríamos convidar vocês para o nosso casamento na sexta-feira, dia 28 de agosto de 2026! Ficaríamos muito felizes em celebrar esse dia tão especial ao lado das pessoas que mais amamos.</span>
       </p>
     </div>
   </section>
 
   <div class="divider" aria-hidden="true">
-    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
+    <svg viewBox="-15 -10 40 90"><use href="#fl-gypsophila"/></svg>
   </div>
 
   <section class="reveal" id="ablauf">
@@ -605,7 +660,7 @@
   </section>
 
   <div class="divider" aria-hidden="true">
-    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
+    <svg viewBox="-6 -60 22 155"><use href="#fl-gladiolus"/></svg>
   </div>
 
   <section class="reveal" id="ort">
@@ -642,7 +697,31 @@
   </section>
 
   <div class="divider" aria-hidden="true">
-    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
+    <svg viewBox="-16 -20 45 80"><use href="#fl-lavender"/></svg>
+  </div>
+
+  <section class="reveal" id="fotos">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow"><span class="lang-de">Erinnerungen</span><span class="lang-pt">Lembranças</span></p>
+        <h2><span class="lang-de">Fotos</span><span class="lang-pt">Fotos</span></h2>
+      </div>
+      <div class="photos-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6B6459" stroke-width="1.4" aria-hidden="true">
+          <rect x="3" y="6" width="18" height="14" rx="2"/>
+          <path d="M3 9 L8 6 L11 8"/>
+          <circle cx="15.5" cy="11.5" r="2"/>
+        </svg>
+        <p>
+          <span class="lang-de">Sobald die Hochzeitsfotos fertig sind, findet ihr hier den Link zum gemeinsamen Album!</span>
+          <span class="lang-pt">Assim que as fotos do casamento estiverem prontas, o link do álbum compartilhado aparecerá aqui!</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">
+    <svg viewBox="-16 -10 40 80"><use href="#fl-cornflower"/></svg>
   </div>
 
   <section class="reveal" id="rsvp">
@@ -666,7 +745,7 @@
   </section>
 
   <div class="divider" aria-hidden="true">
-    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
+    <svg viewBox="-15 -10 40 90"><use href="#fl-gypsophila"/></svg>
   </div>
 
   <section class="reveal" id="info">
@@ -729,8 +808,8 @@
 </main>
 
 <footer>
-  <div class="divider" aria-hidden="true" style="margin-bottom:20px;">
-    <svg viewBox="-40 -20 80 90"><use href="#fl-sprig"/></svg>
+  <div class="divider" aria-hidden="true" style="margin-bottom:12px;">
+    <svg viewBox="-10 -5 30 130"><use href="#fl-thistle"/></svg>
   </div>
   <p class="names-small">Ana <span class="amp">&amp;</span> Timo</p>
   <p class="foot-note">
@@ -751,6 +830,18 @@
       btn.classList.add('active');
     });
   });
+
+  // Countdown to 28 August 2026, 10:00
+  function updateCountdown(){
+    var target = new Date(2026, 7, 28, 10, 0, 0);
+    var now = new Date();
+    var diff = target - now;
+    var days = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+    var el = document.getElementById('countdown-days');
+    if (el) el.textContent = days;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60 * 60 * 1000);
 
   // Scroll-reveal for sections, respecting reduced motion.
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
